@@ -1,6 +1,6 @@
 import { schedules } from "../constants/schedules"
 
-// Obtiene el nombre del día
+// Obtener el nombre del día
 const getDayName = (date) => {
   const days = [
     "lunes",
