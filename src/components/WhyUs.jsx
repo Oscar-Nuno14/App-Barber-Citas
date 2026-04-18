@@ -11,12 +11,17 @@ export default function WhyUs() {
     {
       icon: <CiClock2 size={30} />,
       title: "Horarios Flexibles",
-      desc: "De 9:00 AM a 7:00 PM todos los días",
+      desc: (
+        <>
+         Disponibilidad amplia <br />
+         toda la semana
+        </>
+        ),
     },
     {
       icon: <CiMedal size={30} />,
       title: "Profesionales",
-      desc: "Barberos con más de 10 años de experiencia",
+      desc: "Barberos con más de 6 años de experiencia",
     },
     {
       icon: <CiUser size={30} />,
