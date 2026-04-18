@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { menuItems } from '../data/menuItems';
 import { CiUser } from "react-icons/ci";
 
@@ -6,6 +7,7 @@ export default function BottomNav() {
 
   const [openUser, setOpenUser] = useState(false);
   const userRef = useRef(null);
+  const navigate = useNavigate();
 
   // cerrar al hacer click fuera
   useEffect(() => {
@@ -33,7 +35,10 @@ export default function BottomNav() {
             return (
               <button
                 key={index}
-                onClick={() => setOpenUser(false)}
+                onClick={() => {
+                  setOpenUser(false);
+                  navigate(item.path); // 🔥 redirección
+                }}
                 className="flex flex-col items-center text-xs hover:text-yellow-400 transition"
               >
                 <Icon size={22} />
@@ -43,7 +48,7 @@ export default function BottomNav() {
           })
         }
 
-        {/* 👤 PERFIL (SEPARADO) */}
+        {/* 👤 PERFIL */}
         <div className="relative" ref={userRef}>
 
           <button
@@ -62,7 +67,13 @@ export default function BottomNav() {
                 <p className="font-semibold">Mi Cuenta</p>
               </div>
 
-              <div className="p-3 flex items-center gap-2">
+              <div 
+                className="p-3 flex items-center gap-2 cursor-pointer hover:bg-gray-100"
+                onClick={() => {
+                  navigate("/perfil"); // 👈 ir a perfil
+                  setOpenUser(false);
+                }}
+              >
                 <CiUser />
                 <div>
                   <p className="text-sm font-medium">Oscar</p>
@@ -70,7 +81,14 @@ export default function BottomNav() {
                 </div>
               </div>
 
-              <div className="p-3 border-t text-red-500 cursor-pointer hover:bg-gray-100">
+              <div 
+                className="p-3 border-t text-red-500 cursor-pointer hover:bg-gray-100"
+                onClick={() => {
+                  setOpenUser(false);
+                  // aquí puedes agregar lógica de logout
+                  navigate("/login"); // 👈 opcional
+                }}
+              >
                 Cerrar Sesión
               </div>
 
