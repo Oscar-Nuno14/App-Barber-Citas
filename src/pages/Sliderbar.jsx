@@ -1,32 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import logo from '../logo.png';
-
-// Icons
 import { MdMenuOpen } from "react-icons/md";
-import { IoHomeOutline } from "react-icons/io5";
-import { GrCatalogOption } from "react-icons/gr";
-import { CiCalendar } from "react-icons/ci";
-import { CiCircleList } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
-
-const menuItems = [
-  {
-    icons: <IoHomeOutline size={30} />,
-    label: 'Inicio'
-  },
-  {
-    icons: <GrCatalogOption size={30} />,
-    label: 'Servicios'
-  },
-  {
-    icons: <CiCalendar size={30} />,
-    label: 'Agendar'
-  },
-  {
-    icons: <CiCircleList size={30} />,
-    label: 'Mis Citas'
-  },
-]
+import { menuItems } from '../data/menuItems';
 
 export default function Sliderbar() {
 
@@ -35,7 +11,6 @@ export default function Sliderbar() {
 
   const userRef = useRef()
 
-  // Cerrar al hacer click fuera
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (userRef.current && !userRef.current.contains(e.target)) {
@@ -48,7 +23,7 @@ export default function Sliderbar() {
   }, [])
 
   return (
-    <nav className={`shadow-md min-h-screen p-2 flex flex-col duration-500 bg-zinc-900 text-white ${open ? 'w-60' : 'w-16'}`}>
+    <nav className={`shadow-md h-screen overflow-y-auto p-2 flex flex-col duration-500 bg-zinc-900 text-white ${open ? 'w-60' : 'w-16'}`}>
 
       {/* Header */}
       <div className='px-3 py-5 h-20 flex justify-between items-center'>
@@ -64,18 +39,20 @@ export default function Sliderbar() {
       <ul className='flex-1'>
         {
           menuItems.map((item, index) => {
+            const Icon = item.icon;
+
             return (
               <li
                 key={index}
                 className='px-3 py-2 my-2 hover:bg-blue-100 hover:text-black rounded-md duration-300 cursor-pointer flex gap-2 items-center relative group'
               >
-                <div>{item.icons}</div>
+                <Icon size={30} />
 
                 <p className={`${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>
                   {item.label}
                 </p>
 
-                {/* Tooltip cuando está cerrado */}
+                {/* Tooltip */}
                 <p className={`${open && 'hidden'} absolute left-32 shadow-md rounded-md
                   w-0 p-0 duration-300 text-black overflow-hidden bg-white
                   group-hover:w-fit group-hover:p-2 group-hover:left-16`}>
