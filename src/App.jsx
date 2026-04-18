@@ -1,8 +1,7 @@
-import Sliderbar from "./pages/Sliderbar"
-import './index.css'
+import AppRouter from './routes/AppRouter';
 
 function App() {
-  return <Sliderbar />
+  return <AppRouter />;
 }
 
-export default App
+export default App;
