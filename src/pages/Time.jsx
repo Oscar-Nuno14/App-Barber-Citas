@@ -75,6 +75,8 @@ const Time = () => {
 
   const fechas = generarFechas();
 
+  const pasoActual = 2;
+
   const seleccionarFecha = (fecha) => {
     setFechaSeleccionada(fecha);
     setHoraSeleccionada(null);
@@ -96,7 +98,6 @@ const Time = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen py-10">
-
       <div className="max-w-5xl mx-auto px-4">
 
         {/* HEADER */}
@@ -106,13 +107,17 @@ const Time = () => {
 
         {/* PROGRESS */}
         <div className="flex gap-2 mb-8">
-          <div className="h-2 w-1/4 bg-black rounded-full"></div>
-          <div className="h-2 w-1/4 bg-black rounded-full"></div>
-          <div className="h-2 w-1/4 bg-black rounded-full"></div>
-          <div className="h-2 w-1/4 bg-gray-300 rounded-full"></div>
+          {[1, 2, 3, 4].map((step) => (
+            <div
+              key={step}
+              className={`h-2 w-1/4 rounded-full ${
+                step <= pasoActual ? "bg-black" : "bg-gray-300"
+              }`}
+            ></div>
+          ))}
         </div>
 
-        {/* TÍTULO CON ÍCONO */}
+        {/* TÍTULO */}
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-black text-white p-2 rounded-lg">
             <FiCalendar className="text-lg" />
@@ -130,7 +135,7 @@ const Time = () => {
 
         {/* FECHAS */}
         <p className="text-gray-700 mb-2 font-medium">Fecha</p>
-        <div className="flex flex-wrap gap-3 mb-8">
+        <div className="flex flex-wrap gap-3 mb-6">
           {fechas.map((fecha, i) => {
             const label = fecha.toLocaleDateString("es-MX", {
               weekday: "short",
@@ -154,16 +159,16 @@ const Time = () => {
           })}
         </div>
 
-        {/* HORAS */}
+        {/* HORAS (OPTIMIZADAS) */}
         <p className="text-gray-700 mb-2 font-medium">Hora</p>
 
         {horas.length > 0 ? (
-          <div className="grid grid-cols-4 gap-3 mb-10">
+          <div className="grid grid-cols-5 md:grid-cols-6 gap-2 mb-6">
             {horas.map((hora, i) => (
               <button
                 key={i}
                 onClick={() => setHoraSeleccionada(hora)}
-                className={`p-3 rounded-xl text-sm border transition-all duration-200 ${
+                className={`py-2 rounded-lg text-xs border transition-all duration-200 ${
                   horaSeleccionada === hora
                     ? "bg-black text-white scale-105"
                     : "bg-white hover:bg-gray-200"
@@ -174,14 +179,14 @@ const Time = () => {
             ))}
           </div>
         ) : (
-          <p className="text-gray-400 mb-10">
+          <p className="text-gray-400 mb-6">
             Selecciona una fecha para ver horarios
           </p>
         )}
 
         {/* BOTONES */}
         <div className="flex justify-between">
-          
+
           <button
             onClick={() => navigate(-1)}
             className="px-5 py-2 border rounded-xl hover:bg-gray-200 transition"
@@ -190,23 +195,24 @@ const Time = () => {
           </button>
 
           <button
-  onClick={() =>
-    navigate("/agendar/barbero", {
-      state: {
-        fecha: fechaSeleccionada,
-        hora: horaSeleccionada
-      }
-    })
-  }
-  disabled={!horaSeleccionada}
-  className={`px-6 py-2 rounded-xl font-medium transition ${
-    horaSeleccionada
-      ? "bg-black text-yellow-400 hover:bg-gray-900"
-      : "bg-gray-300 text-gray-500"
-  }`}
->
-  Continuar
-</button>
+            onClick={() =>
+              navigate("/agendar/barbero", {
+                state: {
+                  fecha: fechaSeleccionada,
+                  hora: horaSeleccionada
+                }
+              })
+            }
+            disabled={!horaSeleccionada}
+            className={`px-6 py-2 rounded-xl font-medium transition ${
+              horaSeleccionada
+                ? "bg-black text-yellow-400 hover:bg-gray-900"
+                : "bg-gray-300 text-gray-500"
+            }`}
+          >
+            Continuar
+          </button>
+
         </div>
 
       </div>
