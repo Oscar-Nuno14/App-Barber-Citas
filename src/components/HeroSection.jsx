@@ -1,9 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import barberLogo from "../assets/logo.png";
-import barberImg from "../assets/barber.jpeg"
+import barberImg from "../assets/barber.jpeg";
 import { FaInstagram, FaFacebookF, FaWhatsapp } from "react-icons/fa";
 
 export default function Hero() {
+
+  const navigate = useNavigate();
+
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
 
@@ -39,7 +43,7 @@ export default function Hero() {
           Nuestra Pasión
         </h2>
 
-        {/* Línea decorativa */}
+        {/* Línea */}
         <div className="mt-4 w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#C9A227] rounded-full"></div>
 
         {/* Descripción */}
@@ -47,21 +51,30 @@ export default function Hero() {
           Reserva tu cita en pocos pasos y mantén tu estilo siempre impecable.
         </p>
 
-        {/* Botones */}
+        {/* BOTONES */}
         <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <button className="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#C9A227] text-black px-6 py-3 rounded-md font-semibold hover:from-[#C9A227] hover:to-[#B8961E] transition shadow-lg">
+
+          {/* AGENDAR */}
+          <button
+            onClick={() => navigate("/agendar")}
+            className="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#C9A227] text-black px-6 py-3 rounded-md font-semibold hover:from-[#C9A227] hover:to-[#B8961E] transition shadow-lg"
+          >
             Agendar Cita
           </button>
 
-          <button className="w-full sm:w-auto bg-white text-[#D4AF37] border border-white px-6 py-3 rounded-md font-bold text-base sm:text-lg tracking-wide hover:bg-gradient-to-r hover:from-[#D4AF37] hover:via-[#FFD700] hover:to-[#C9A227] hover:text-black transition shadow-md">
+          {/* SERVICIOS */}
+          <button
+            onClick={() => navigate("/servicios")}
+            className="w-full sm:w-auto bg-white text-[#D4AF37] border border-white px-6 py-3 rounded-md font-bold text-base sm:text-lg tracking-wide hover:bg-gradient-to-r hover:from-[#D4AF37] hover:via-[#FFD700] hover:to-[#C9A227] hover:text-black transition shadow-md"
+          >
             Ver Servicios
           </button>
+
         </div>
 
         {/* Redes sociales */}
         <div className="mt-6 flex gap-5 text-xl">
 
-          {/* Instagram */}
           <a
             href="https://instagram.com"
             target="_blank"
@@ -71,7 +84,6 @@ export default function Hero() {
             <FaInstagram className="text-white" />
           </a>
 
-          {/* Facebook */}
           <a
             href="https://facebook.com"
             target="_blank"
@@ -81,7 +93,6 @@ export default function Hero() {
             <FaFacebookF className="text-white" />
           </a>
 
-          {/* WhatsApp */}
           <a
             href="https://wa.me/5210000000000"
             target="_blank"
@@ -90,10 +101,11 @@ export default function Hero() {
           >
             <FaWhatsapp className="text-white" />
           </a>
+
         </div>
       </div>
 
-      {/* Botón flotante WhatsApp */}
+      {/* WhatsApp flotante */}
       <a
         href="https://wa.me/5210000000000"
         target="_blank"
