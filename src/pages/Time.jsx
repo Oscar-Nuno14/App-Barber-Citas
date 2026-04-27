@@ -3,37 +3,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FiCalendar } from "react-icons/fi";
 
 const horariosPorDia = {
-  1: [
-    { inicio: "10:00", fin: "14:00" },
-    { inicio: "16:30", fin: "20:00" }
-  ],
-  2: [
-    { inicio: "10:00", fin: "14:00" },
-    { inicio: "16:30", fin: "20:00" }
-  ],
-  3: [
-    { inicio: "10:00", fin: "14:00" },
-    { inicio: "16:30", fin: "20:00" }
-  ],
-  4: [
-    { inicio: "10:00", fin: "14:00" },
-    { inicio: "17:00", fin: "20:00" }
-  ],
-  5: [
-    { inicio: "10:00", fin: "14:00" },
-    { inicio: "16:30", fin: "20:00" }
-  ],
-  6: [
-    { inicio: "10:00", fin: "19:00" }
-  ],
-  0: [
-    { inicio: "10:30", fin: "14:30" }
-  ]
+  1: [{ inicio: "10:00", fin: "14:00" }, { inicio: "16:30", fin: "20:00" }],
+  2: [{ inicio: "10:00", fin: "14:00" }, { inicio: "16:30", fin: "20:00" }],
+  3: [{ inicio: "10:00", fin: "14:00" }, { inicio: "16:30", fin: "20:00" }],
+  4: [{ inicio: "10:00", fin: "14:00" }, { inicio: "17:00", fin: "20:00" }],
+  5: [{ inicio: "10:00", fin: "14:00" }, { inicio: "16:30", fin: "20:00" }],
+  6: [{ inicio: "10:00", fin: "19:00" }],
+  0: [{ inicio: "10:30", fin: "14:30" }]
 };
 
 const generarHoras = (inicio, fin) => {
   const horas = [];
-
   let [h, m] = inicio.split(":").map(Number);
   let [hFin, mFin] = fin.split(":").map(Number);
 
@@ -43,7 +23,6 @@ const generarHoras = (inicio, fin) => {
     );
 
     m += 30;
-
     if (m >= 60) {
       m = 0;
       h++;
@@ -66,15 +45,15 @@ const generarFechas = () => {
   return fechas;
 };
 
-const Time = () => {
+export default function Time() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const { servicio } = location.state || {};
 
-
   if (!servicio) {
     navigate("/agendar");
+    return null;
   }
 
   const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
@@ -82,7 +61,8 @@ const Time = () => {
   const [horaSeleccionada, setHoraSeleccionada] = useState(null);
 
   const fechas = generarFechas();
-  const pasoActual = 2;
+
+  const pasoActual = 1;
 
   const seleccionarFecha = (fecha) => {
     setFechaSeleccionada(fecha);
@@ -107,24 +87,43 @@ const Time = () => {
     <div className="bg-gray-100 min-h-screen py-10">
       <div className="max-w-5xl mx-auto px-4">
 
-        {/* HEADER */}
+        <div className="mb-8">
+          <div className="flex justify-between text-xs mb-2">
+            {["Servicio", "Fecha", "Barbero", "Confirmar"].map((step, index) => (
+              <div key={index} className="flex flex-col items-center flex-1">
+
+                <div
+                  className={`w-3 h-3 rounded-full mb-1 ${
+                    index <= pasoActual ? "bg-black" : "bg-gray-300"
+                  }`}
+                />
+
+                <span
+                  className={`text-center ${
+                    index <= pasoActual
+                      ? "text-black font-medium"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {step}
+                </span>
+
+              </div>
+            ))}
+          </div>
+
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="h-2 bg-black transition-all"
+              style={{ width: "50%" }}
+            />
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold text-gray-900 mb-6">
           Agendar Cita
         </h1>
 
-        {/* PROGRESS */}
-        <div className="flex gap-2 mb-8">
-          {[1, 2, 3, 4].map((step) => (
-            <div
-              key={step}
-              className={`h-2 w-1/4 rounded-full ${
-                step <= pasoActual ? "bg-black" : "bg-gray-300"
-              }`}
-            ></div>
-          ))}
-        </div>
-
-        {/* TÍTULO */}
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-black text-white p-2 rounded-lg">
             <FiCalendar />
@@ -140,33 +139,27 @@ const Time = () => {
           </div>
         </div>
 
-        {/* FECHAS */}
         <p className="text-gray-700 mb-2 font-medium">Fecha</p>
         <div className="flex flex-wrap gap-3 mb-6">
-          {fechas.map((fecha, i) => {
-            const label = fecha.toLocaleDateString("es-MX", {
-              weekday: "short",
-              day: "numeric",
-              month: "short"
-            });
-
-            return (
-              <button
-                key={i}
-                onClick={() => seleccionarFecha(fecha)}
-                className={`px-4 py-2 rounded-xl text-sm border ${
-                  fechaSeleccionada?.toDateString() === fecha.toDateString()
-                    ? "bg-black text-white"
-                    : "bg-white hover:bg-gray-200"
-                }`}
-              >
-                {label}
-              </button>
-            );
-          })}
+          {fechas.map((fecha, i) => (
+            <button
+              key={i}
+              onClick={() => seleccionarFecha(fecha)}
+              className={`px-4 py-2 rounded-xl text-sm border ${
+                fechaSeleccionada?.toDateString() === fecha.toDateString()
+                  ? "bg-black text-white"
+                  : "bg-white hover:bg-gray-200"
+              }`}
+            >
+              {fecha.toLocaleDateString("es-MX", {
+                weekday: "short",
+                day: "numeric",
+                month: "short"
+              })}
+            </button>
+          ))}
         </div>
 
-        {/* HORAS */}
         <p className="text-gray-700 mb-2 font-medium">Hora</p>
 
         {horas.length > 0 ? (
@@ -191,9 +184,7 @@ const Time = () => {
           </p>
         )}
 
-        {/* BOTONES */}
         <div className="flex justify-between">
-
           <button
             onClick={() => navigate(-1)}
             className="px-5 py-2 border rounded-xl"
@@ -206,7 +197,7 @@ const Time = () => {
               navigate("/agendar/barbero", {
                 state: {
                   servicio,
-                  fecha: fechaSeleccionada?.toString(), 
+                  fecha: fechaSeleccionada?.toString(),
                   hora: horaSeleccionada
                 }
               })
@@ -220,12 +211,9 @@ const Time = () => {
           >
             Continuar
           </button>
-
         </div>
 
       </div>
     </div>
   );
-};
-
-export default Time;
+}

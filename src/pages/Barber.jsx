@@ -31,7 +31,7 @@ const Barber = () => {
 
   const [barberoSeleccionado, setBarberoSeleccionado] = useState(null);
 
-  const pasoActual = 3;
+  const pasoActual = 2;
 
   useEffect(() => {
     if (!servicio || !fecha || !hora) {
@@ -43,24 +43,43 @@ const Barber = () => {
     <div className="bg-gray-100 min-h-screen py-10">
       <div className="max-w-5xl mx-auto px-4">
 
-        {/* HEADER */}
+        <div className="mb-8">
+          <div className="flex justify-between text-xs mb-2">
+            {["Servicio", "Fecha", "Barbero", "Confirmar"].map((step, index) => (
+              <div key={index} className="flex flex-col items-center flex-1">
+
+                <div
+                  className={`w-3 h-3 rounded-full mb-1 ${
+                    index <= pasoActual ? "bg-black" : "bg-gray-300"
+                  }`}
+                />
+
+                <span
+                  className={`text-center ${
+                    index <= pasoActual
+                      ? "text-black font-medium"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {step}
+                </span>
+
+              </div>
+            ))}
+          </div>
+
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="h-2 bg-black transition-all"
+              style={{ width: "75%" }}
+            />
+          </div>
+        </div>
+
         <h1 className="text-3xl font-bold text-gray-900 mb-6">
           Agendar Cita
         </h1>
 
-        {/* PROGRESS */}
-        <div className="flex gap-2 mb-8">
-          {[1, 2, 3, 4].map((step) => (
-            <div
-              key={step}
-              className={`h-2 w-1/4 rounded-full ${
-                step <= pasoActual ? "bg-black" : "bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* TÍTULO */}
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-black text-yellow-400 p-2 rounded-lg">
             <FiUser />
@@ -76,7 +95,6 @@ const Barber = () => {
           </div>
         </div>
 
-        {/* CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {barberos.map((barbero) => (
             <div
@@ -105,7 +123,6 @@ const Barber = () => {
           ))}
         </div>
 
-        {/* BOTONES */}
         <div className="flex justify-between">
 
           <button

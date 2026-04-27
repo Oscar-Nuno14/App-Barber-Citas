@@ -7,9 +7,10 @@ const Confirmacion = () => {
   const location = useLocation();
 
   const data = location.state;
-
   const { servicio, fecha, hora, barbero } = data || {};
 
+
+  const pasoActual = 3;
 
   if (!servicio || !fecha || !hora || !barbero) {
     return (
@@ -44,7 +45,6 @@ const Confirmacion = () => {
     citas.push(nuevaCita);
     localStorage.setItem("citas", JSON.stringify(citas));
 
-
     navigate("/agendar/guardada", {
       state: nuevaCita
     });
@@ -54,12 +54,45 @@ const Confirmacion = () => {
     <div className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="max-w-3xl mx-auto">
 
-        {/* HEADER */}
-        <h1 className="text-2xl font-bold mb-6">Agendar Cita</h1>
+        <div className="mb-8">
+          <div className="flex justify-between text-xs mb-2">
+            {["Servicio", "Fecha", "Barbero", "Confirmar"].map((step, index) => (
+              <div key={index} className="flex flex-col items-center flex-1">
+
+                <div
+                  className={`w-3 h-3 rounded-full mb-1 ${
+                    index <= pasoActual ? "bg-black" : "bg-gray-300"
+                  }`}
+                />
+
+                <span
+                  className={`text-center ${
+                    index <= pasoActual
+                      ? "text-black font-medium"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {step}
+                </span>
+
+              </div>
+            ))}
+          </div>
+
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="h-2 bg-black transition-all"
+              style={{ width: "100%" }}
+            />
+          </div>
+        </div>
+
+        <h1 className="text-2xl font-bold mb-6">
+          Agendar Cita
+        </h1>
 
         <div className="bg-white rounded-xl shadow p-6">
 
-  
           <div className="flex items-center gap-3 mb-6">
             <div className="bg-black text-white p-2 rounded-lg">
               <FiUser />
@@ -72,7 +105,6 @@ const Confirmacion = () => {
               </p>
             </div>
           </div>
-
 
           <div className="mb-6 space-y-3 text-sm">
 
