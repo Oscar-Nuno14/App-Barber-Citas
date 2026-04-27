@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 
@@ -27,11 +27,17 @@ const Barber = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { fecha, hora } = location.state || {};
+  const { servicio, fecha, hora } = location.state || {};
 
   const [barberoSeleccionado, setBarberoSeleccionado] = useState(null);
 
   const pasoActual = 3;
+
+  useEffect(() => {
+    if (!servicio || !fecha || !hora) {
+      navigate("/agendar");
+    }
+  }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen py-10">
@@ -50,18 +56,18 @@ const Barber = () => {
               className={`h-2 w-1/4 rounded-full ${
                 step <= pasoActual ? "bg-black" : "bg-gray-300"
               }`}
-            ></div>
+            />
           ))}
         </div>
 
-        {/* TÍTULO CON ÍCONO */}
+        {/* TÍTULO */}
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-black text-yellow-400 p-2 rounded-lg">
-            <FiUser className="text-lg" />
+            <FiUser />
           </div>
 
           <div>
-            <p className="text-lg font-semibold text-gray-900">
+            <p className="text-lg font-semibold">
               Selecciona tu Barbero
             </p>
             <p className="text-sm text-gray-500">
@@ -104,23 +110,26 @@ const Barber = () => {
 
           <button
             onClick={() => navigate(-1)}
-            className="px-5 py-2 border rounded-xl hover:bg-gray-200 transition"
+            className="px-5 py-2 border rounded-xl hover:bg-gray-200"
           >
             Atrás
           </button>
 
           <button
-            onClick={() =>
+            onClick={() => {
+              if (!barberoSeleccionado) return;
+
               navigate("/agendar/confirmacion", {
                 state: {
+                  servicio,
                   fecha,
                   hora,
                   barbero: barberoSeleccionado
                 }
-              })
-            }
+              });
+            }}
             disabled={!barberoSeleccionado}
-            className={`px-6 py-2 rounded-xl font-medium transition ${
+            className={`px-6 py-2 rounded-xl font-medium ${
               barberoSeleccionado
                 ? "bg-black text-yellow-400 hover:bg-gray-900"
                 : "bg-gray-300 text-gray-500"

@@ -6,5 +6,5 @@ export const menuItems = [
   { icon: IoHomeOutline, label: 'Inicio', path: '/'},
   { icon: GrCatalogOption, label: 'Servicios', path: '/servicios'  },
   { icon: CiCalendar, label: 'Agendar', path: '/agendar' },
-  { icon: CiCircleList, label: 'Mis Citas' },
+  { icon: CiCircleList, label: 'Mis Citas', path: '/citas' },
 ];

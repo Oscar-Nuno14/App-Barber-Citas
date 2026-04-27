@@ -57,7 +57,12 @@ export default function AgendarCita() {
 
   const handleContinuar = () => {
     if (!seleccionado) return;
-    navigate("/agendar/time");
+
+    navigate("/agendar/time", {
+      state: {
+        servicio: seleccionado
+      }
+    });
   };
 
   return (
@@ -164,6 +169,7 @@ export default function AgendarCita() {
             Continuar
           </button>
         </div>
+
       </div>
     </div>
   );
