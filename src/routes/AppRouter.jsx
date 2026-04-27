@@ -4,6 +4,7 @@ import AgendarCita from '../pages/AgendarCita';
 import Barber from '../pages/Barber';
 import Layout from "../layout/Layout";
 import Time from '../pages/Time'
+import Confirm from '../pages/Confirmation'
 
 export default function AppRoutes() {
   return (
@@ -13,8 +14,9 @@ export default function AppRoutes() {
           <Route index element={<Home />} />
           
           <Route path="agendar" element={<AgendarCita />} />
-          <Route path="agendar/barbero" element={<Barber />} />
           <Route path="agendar/time" element={<Time />} />
+          <Route path="agendar/barbero" element={<Barber />} />
+          {/*<Route path="agendar/confirmacion" element={<Comfirm />} />*/}
           
         </Route>
       </Routes>

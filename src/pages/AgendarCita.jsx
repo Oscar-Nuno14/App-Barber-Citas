@@ -47,7 +47,7 @@ const servicios = [
   },
 ];
 
-const steps = ["Servicio", "Barbero", "Fecha", "Confirmar"];
+const steps = ["Servicio", "Fecha", "Barbero", "Confirmar"];
 
 export default function AgendarCita() {
   const [seleccionado, setSeleccionado] = useState(null);
@@ -57,7 +57,7 @@ export default function AgendarCita() {
 
   const handleContinuar = () => {
     if (!seleccionado) return;
-    navigate("/agendar/barbero");
+    navigate("/agendar/time");
   };
 
   return (
