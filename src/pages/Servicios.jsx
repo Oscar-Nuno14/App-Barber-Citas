@@ -8,7 +8,7 @@ const servicios = [
     id: 1,
     nombre: "Corte Clásico",
     descripcion: "Corte tradicional con tijera y máquina",
-    precio: "$150",
+    precio: "$120",
     duracion: "30 min",
     img: CorteClasico
   },
@@ -16,40 +16,56 @@ const servicios = [
     id: 2,
     nombre: "Corte y Barba",
     descripcion: "Corte completo más perfilado y arreglo de barba",
-    precio: "$250",
-    duracion: "45 min",
+    precio: "$170",
+    duracion: "20 - 45 min",
     img: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70"
   },
   {
     id: 3,
-    nombre: "Afeitado Clásico",
-    descripcion: "Afeitado tradicional con navaja y toalla caliente",
-    precio: "$180",
-    duracion: "30 min",
+    nombre: "Corte, Barba y Ceja",
+    descripcion: "Servicio completo que incluye corte de cabello, arreglo de barba y perfilado de ceja para un look limpio y definido",
+    precio: "$190",
+    duracion: "30 - 60 min",
     img: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a"
   },
   {
     id: 4,
-    nombre: "Corte Premium",
-    descripcion: "Corte, barba, cejas y tratamiento capilar",
-    precio: "$300",
+    nombre: "PAQUETE VIP",
+    descripcion: "Corte, barba, ceja y facial completo para un estilo impecable",
+    precio: "$420",
     duracion: "60 min",
     img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9"
   },
   {
     id: 5,
-    nombre: "Corte Niño",
-    descripcion: "Corte especial para niños menores de 12 años",
-    precio: "$120",
-    duracion: "25 min",
+    nombre: "Barba",
+    descripcion: "Arreglo y diseño de barba con acabado limpio y preciso",
+    precio: "$80",
+    duracion: "30 min",
     img: "https://images.unsplash.com/photo-1605497788044-5a32c7078486"
   },
   {
     id: 6,
-    nombre: "Tinte y Decoloración",
-    descripcion: "Coloración profesional y diseño personalizado",
-    precio: "$350",
-    duracion: "90 min",
+    nombre: "Corte Dama",
+    descripcion: "Corte de dama personalizado para resaltar tu estilo y belleza natural",
+    precio: "$150",
+    duracion: "30 min",
+    img: "https://images.unsplash.com/photo-1519741497674-611481863552"
+  },
+  {
+    id: 7,
+    nombre: "Depilación",
+    descripcion: "Depilación precisa para un acabado limpio y duradero",
+    precio: "$50",
+    duracion: "30 min",
+    img: "https://images.unsplash.com/photo-1519741497674-611481863552"
+  },
+  {
+    id: 8,
+    nombre: "Ceja y Bigote",
+    descripcion: "Perfilado de ceja y bigote para un acabado limpio y definido",
+    precio: "$80",
+    duracion: "30 min",
     img: "https://images.unsplash.com/photo-1519741497674-611481863552"
   }
 ];
