@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Home from '../pages/Home';
 import AgendarCita from '../pages/AgendarCita';
 import Barber from '../pages/Barber';
@@ -10,22 +11,59 @@ import Exito from '../pages/Exito';
 import MisCitas from '../pages/MisCitas';
 
 export default function AppRoutes() {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
+
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          
-          <Route path="agendar" element={<AgendarCita />} />
-          <Route path="servicios" element={<Servicios />} />
-          <Route path="citas" element={<MisCitas />} />
-          <Route path="agendar/time" element={<Time />} />
-          <Route path="agendar/barbero" element={<Barber />} />
-          <Route path="agendar/confirmacion" element={<Confirm />} />
-          <Route path="agendar/guardada" element={<Exito />} />
-          
+
+          <Route
+            index
+            element={<Home />}
+          />
+
+          <Route
+            path="agendar"
+            element={<AgendarCita />}
+          />
+
+          <Route
+            path="servicios"
+            element={<Servicios />}
+          />
+
+          <Route
+            path="citas"
+            element={<MisCitas />}
+          />
+
+          <Route
+            path="agendar/time"
+            element={<Time />}
+          />
+
+          <Route
+            path="agendar/barbero"
+            element={<Barber />}
+          />
+
+          <Route
+            path="agendar/confirmacion"
+            element={<Confirm />}
+          />
+
+          <Route
+            path="agendar/exito"
+            element={<Exito />}
+          />
+
         </Route>
+
       </Routes>
+
     </BrowserRouter>
   );
 }
