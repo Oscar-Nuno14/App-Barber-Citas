@@ -9,7 +9,6 @@ const Confirmacion = () => {
   const data = location.state;
   const { servicio, fecha, hora, barbero } = data || {};
 
-
   const pasoActual = 3;
 
   if (!servicio || !fecha || !hora || !barbero) {
@@ -31,23 +30,39 @@ const Confirmacion = () => {
     month: "short"
   });
 
-  const handleConfirmar = () => {
+  const handleConfirmar = async () => {
+
     const nuevaCita = {
-      servicio,
-      fecha,
-      hora,
-      barbero,
-      nombre: "Oscar",
-      telefono: "4751072242"
+      userId: "123",
+      userName: "Oscar",
+      barber: barbero.nombre,
+      service: servicio.nombre,
+      date: fecha,
+      time: hora,
+      status: "ACTIVA"
     };
 
-    const citas = JSON.parse(localStorage.getItem("citas")) || [];
-    citas.push(nuevaCita);
-    localStorage.setItem("citas", JSON.stringify(citas));
+    try {
 
-    navigate("/agendar/guardada", {
-      state: nuevaCita
-    });
+      const response = await fetch("http://localhost:8080/api/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(nuevaCita)
+      });
+
+      const data = await response.json();
+
+      console.log("Cita guardada:", data);
+
+      navigate("/agendar/guardada", {
+        state: data
+      });
+
+    } catch (error) {
+      console.error("Error al guardar cita", error);
+    }
   };
 
   return (

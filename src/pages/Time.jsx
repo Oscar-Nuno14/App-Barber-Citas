@@ -14,15 +14,20 @@ const horariosPorDia = {
 
 const generarHoras = (inicio, fin) => {
   const horas = [];
+
   let [h, m] = inicio.split(":").map(Number);
   let [hFin, mFin] = fin.split(":").map(Number);
 
   while (h < hFin || (h === hFin && m <= mFin)) {
+
     horas.push(
-      `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`
+      `${h.toString().padStart(2, "0")}:${m
+        .toString()
+        .padStart(2, "0")}`
     );
 
     m += 30;
+
     if (m >= 60) {
       m = 0;
       h++;
@@ -46,6 +51,7 @@ const generarFechas = () => {
 };
 
 export default function Time() {
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -65,19 +71,23 @@ export default function Time() {
   const pasoActual = 1;
 
   const seleccionarFecha = (fecha) => {
+
     setFechaSeleccionada(fecha);
     setHoraSeleccionada(null);
 
     const dia = fecha.getDay();
+
     const bloques = horariosPorDia[dia] || [];
 
     let horasGeneradas = [];
 
     bloques.forEach((bloque) => {
+
       horasGeneradas = [
         ...horasGeneradas,
         ...generarHoras(bloque.inicio, bloque.fin)
       ];
+
     });
 
     setHoras(horasGeneradas);
@@ -85,16 +95,26 @@ export default function Time() {
 
   return (
     <div className="bg-gray-100 min-h-screen py-10">
+
       <div className="max-w-5xl mx-auto px-4">
 
+        {/* STEPPER */}
         <div className="mb-8">
+
           <div className="flex justify-between text-xs mb-2">
+
             {["Servicio", "Fecha", "Barbero", "Confirmar"].map((step, index) => (
-              <div key={index} className="flex flex-col items-center flex-1">
+
+              <div
+                key={index}
+                className="flex flex-col items-center flex-1"
+              >
 
                 <div
                   className={`w-3 h-3 rounded-full mb-1 ${
-                    index <= pasoActual ? "bg-black" : "bg-gray-300"
+                    index <= pasoActual
+                      ? "bg-black"
+                      : "bg-gray-300"
                   }`}
                 />
 
@@ -109,39 +129,57 @@ export default function Time() {
                 </span>
 
               </div>
+
             ))}
+
           </div>
 
           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+
             <div
               className="h-2 bg-black transition-all"
               style={{ width: "50%" }}
             />
+
           </div>
+
         </div>
 
+        {/* TITULO */}
         <h1 className="text-3xl font-bold text-gray-900 mb-6">
           Agendar Cita
         </h1>
 
+        {/* HEADER */}
         <div className="flex items-center gap-3 mb-6">
+
           <div className="bg-black text-white p-2 rounded-lg">
             <FiCalendar />
           </div>
 
           <div>
+
             <p className="text-lg font-semibold">
               Selecciona Fecha y Hora
             </p>
+
             <p className="text-sm text-gray-500">
               Elige el día y la hora disponible
             </p>
+
           </div>
+
         </div>
 
-        <p className="text-gray-700 mb-2 font-medium">Fecha</p>
+        {/* FECHAS */}
+        <p className="text-gray-700 mb-2 font-medium">
+          Fecha
+        </p>
+
         <div className="flex flex-wrap gap-3 mb-6">
+
           {fechas.map((fecha, i) => (
+
             <button
               key={i}
               onClick={() => seleccionarFecha(fecha)}
@@ -151,20 +189,30 @@ export default function Time() {
                   : "bg-white hover:bg-gray-200"
               }`}
             >
+
               {fecha.toLocaleDateString("es-MX", {
                 weekday: "short",
                 day: "numeric",
                 month: "short"
               })}
+
             </button>
+
           ))}
+
         </div>
 
-        <p className="text-gray-700 mb-2 font-medium">Hora</p>
+        {/* HORAS */}
+        <p className="text-gray-700 mb-2 font-medium">
+          Hora
+        </p>
 
         {horas.length > 0 ? (
+
           <div className="grid grid-cols-5 md:grid-cols-6 gap-2 mb-6">
+
             {horas.map((hora, i) => (
+
               <button
                 key={i}
                 onClick={() => setHoraSeleccionada(hora)}
@@ -176,15 +224,22 @@ export default function Time() {
               >
                 {hora}
               </button>
+
             ))}
+
           </div>
+
         ) : (
+
           <p className="text-gray-400 mb-6">
             Selecciona una fecha para ver horarios
           </p>
+
         )}
 
+        {/* BOTONES */}
         <div className="flex justify-between">
+
           <button
             onClick={() => navigate(-1)}
             className="px-5 py-2 border rounded-xl"
@@ -197,7 +252,9 @@ export default function Time() {
               navigate("/agendar/barbero", {
                 state: {
                   servicio,
-                  fecha: fechaSeleccionada?.toString(),
+                  fecha: fechaSeleccionada
+                    ?.toISOString()
+                    .split("T")[0],
                   hora: horaSeleccionada
                 }
               })
@@ -211,9 +268,11 @@ export default function Time() {
           >
             Continuar
           </button>
+
         </div>
 
       </div>
+
     </div>
   );
 }
